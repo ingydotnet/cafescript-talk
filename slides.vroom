@@ -20,6 +20,7 @@ vimrc: |
   map <ENTER> ;
   map q ;
   map qq :q!<cr>
+  map <C-H> :N<CR>:<CR>gg
 
   map 1 :wincmd o<cr>
   map 2 :wincmd v<cr>
@@ -57,22 +58,28 @@ Salt Lake City
 +* Ingy hates *all* programming languages
 +  * He hates CoffeeScript the least
 
-+* It's the simplest, most productive syntax I've seen
++* It's the simplest, most productive syntax I've used
    * It's missing a couple things
    * It inherited a few warts from JS
 
-+* CafeScript smooths Coffee out and serves it everywhere!
++* CafeScript smooths out Coffee and serves it everywhere!
 
 ----
 == Whence CoffeeScript?
 
-* Born on Dec 23, 2009 (after 10 days gestation)
+* Born on Christmas Eve, 2009
+  * 105 commits from Dec 13th, 2009
 * Stole lots of great syntax ideas
-  * from Perl, Ruby, Haskell, Python, YAML
+  * JavaScript, Perl, Ruby, Haskell, Python, YAML
 * Minimal syntax
   * Easy to read
   * Full featured
 * Very well thought out and implemented
+
+    A language that takes out the frustrating and
+    overly verbose bits of JS, and provides a safer,
+    briefer way to stick to the good parts.
+      --Jeremy Ashkenas
 
 * Writes modern JavaScript, better than you would!
   * Faster and more correct
@@ -87,11 +94,11 @@ Salt Lake City
   * Compared to CoffeeScript
 
 ----
-== Basic Syntax
+== JavaScript Basic Syntax
 
 var foo = "bar";
 
-// (Comment) Perl++:
+// (Comment) Perl++
 if (opposite) {
   number = -42;
 }
@@ -101,18 +108,18 @@ var square = function(x) {
 };
 
 ----
-== Basic Syntax
+== CoffeeScript Basic Syntax
 
 foo = "bar"
 
-# (Comment) Perl++:
+# (Comment) Perl++
 number = -42 if opposite
 
 square = (x)->
   x * x
 
 ----
-== Intermediate Syntax
+== CoffeeScript Intermediate Syntax
 
 # Existence:
 alert "I knew it!" if elvis?
@@ -121,7 +128,7 @@ alert "I knew it!" if elvis?
 cubes = (math.cube num for num in list)
 
 ----
-== Intermediate Syntax
+== JavaScript Intermediate Syntax
 
 // Existence:
 if (typeof elvis !== "undefined" && elvis !== null) {
@@ -140,13 +147,13 @@ var cubes = (function() {
 })();
 
 ----
-== Splats
+== CoffeeScript Splats
 
 race = (winner, runners...) ->
   print winner, runners
 
 ----
-== Splats
+== JavaScript Splats
 
 var race = function() {
   var runners, winner;
@@ -157,7 +164,7 @@ var race = function() {
 };
 
 ----
-== Destructuring Assignment
+== JavaScript Destructuring Assignment
 
 var futurists = {
   sculptor: "Umberto Boccioni",
@@ -174,7 +181,7 @@ var street = futurists.poet.address[0];
 var city = futurists.poet.address[1];
 
 ----
-== Destructuring Assignment
+== CoffeeScript Destructuring Assignment
 
 futurists =
   sculptor: "Umberto Boccioni"
@@ -191,12 +198,12 @@ futurists =
 {poet: {name, address: [street, city]}} = futurists
 
 ----
-== Destructuring Splat
+== CoffeeScript Destructuring Splat
 
 [open, contents..., close] = tag.split ""
 
 ----
-== Destructuring Splat
+== JavaScript Destructuring Splat
 
 var close, contents, i, open, ref, tag,
   slice = [].slice;
@@ -206,7 +213,7 @@ ref = tag.split(""), open = ref[0], contents = 3 <= ref.length
   : (i = 1, []), close = ref[i++];
 
 ----
-== Object Oriented
+== CoffeeScript Object Oriented
 
 @                     this
 @foo = 1              this.foo = 1
@@ -229,9 +236,10 @@ sam.move()
 ----
 == Triple Down!
 
-* Python gave us """
+* Python gave us """ for multi-line strings...
 
-+* Coffee Gives us ''', """, ///, ###
++* Coffee Gives us ''', """, ```, ///, ###
+  * Multi-Multi-lines!
 
 +* But no heredocs! :(
 
@@ -314,11 +322,13 @@ list1 = [1 "two" 3]
 list2 = <a b c>      # Perl6++ !!!
 
 ----
-== Cafe is just a tiny bit better...
+== Cafe is just a tiny bit better than Coffee...
 
-+== But Why Not?
++== Do We Need This?
 
-+== Now You're an Acmeist
++== Why Not?
+
++== Now You're an Acmeist...
 
 +== YOU DESERVE IT!!!
 
