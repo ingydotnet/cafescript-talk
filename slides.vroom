@@ -1,0 +1,338 @@
+---- config
+title: CafeScript - Smooth, Full-Bodied Code that Goes with Anything
+indent: 5
+auto_size: 1
+vim_opts: '-u NONE'
+skip: 0
+vimrc: |
+  unmap AA
+  unmap QQ
+  set nohlsearch
+  au BufRead * syn match vroom_command "\v^\s*\$.*$"
+  hi vroom_command  term=bold,italic,underline ctermfg=Brown
+  autocmd BufWritePre *.json :syn off
+
+  map j /^\s\+\$<cr>
+  map k ?^\s\+\$<cr>
+  map r :exec '!clear;printf "=\%.0s" {1..80};echo;' . substitute(getline('.'), '^\s\+\$\s\+', '', '')<cr>
+  map m r
+  " map <ENTER> r
+  map <ENTER> ;
+  map q ;
+  map qq :q!<cr>
+
+  map 1 :wincmd o<cr>
+  map 2 :wincmd v<cr>
+  map \1 :w<cr>
+
+---- center
+CafeScript - The Smooth, Full-Bodied Code that Goes with Anything
+
+by Ingy döt Net
+
+The Perl Conference - 2018
+Salt Lake City
+
+----
+== Cafe == Coffee for Everyone!™
+
++* Yesterday I showed you:
+
+  Your-Cool-Idea -> CafeScript -> L'Ingy -> Perl5 | Perl6
++    | Ada | Bash | BASIC | C# | C++ | Clojure
+    | Common Lisp | CoffeeScript | D | Dart | Delphi
+    | Dylan | Eiffel | Elixir | Erlang | F# | Gambas
+    | Go | Groovy | Haskell | Java | JavaScript | Julia
+    | Kotlin | LiveScript | Lua | MATLAB | ML
+    | Objective-C | OCaml | PHP | Processing | Prolog
+    | Python 2 | Python 3 | R | Racket | Ruby | Rust
+    | Scala | Scheme | Scratch | Smalltalk | Swift
+    | Tcl | Visual Basic | XSLT | ...
+
+----
+== But What is CafeScript?
+
+* CafeScript is CoffeeScript++
+
++* Ingy hates *all* programming languages
++  * He hates CoffeeScript the least
+
++* It's the simplest, most productive syntax I've seen
+   * It's missing a couple things
+   * It inherited a few warts from JS
+
++* CafeScript smooths Coffee out and serves it everywhere!
+
+----
+== Whence CoffeeScript?
+
+* Born on Dec 23, 2009 (after 10 days gestation)
+* Stole lots of great syntax ideas
+  * from Perl, Ruby, Haskell, Python, YAML
+* Minimal syntax
+  * Easy to read
+  * Full featured
+* Very well thought out and implemented
+
+* Writes modern JavaScript, better than you would!
+  * Faster and more correct
+
+----
+== A Whirlwind Tour of Coffee and Cafe
+
+* First I'll show you the best of Coffee
+  * Compared to (2009) JavaScript
+
+* And then Some Improvements in Cafe
+  * Compared to CoffeeScript
+
+----
+== Basic Syntax
+
+var foo = "bar";
+
+// (Comment) Perl++:
+if (opposite) {
+  number = -42;
+}
+
+var square = function(x) {
+  return x * x;
+};
+
+----
+== Basic Syntax
+
+foo = "bar"
+
+# (Comment) Perl++:
+number = -42 if opposite
+
+square = (x)->
+  x * x
+
+----
+== Intermediate Syntax
+
+# Existence:
+alert "I knew it!" if elvis?
+
+# Array comprehensions:
+cubes = (math.cube num for num in list)
+
+----
+== Intermediate Syntax
+
+// Existence:
+if (typeof elvis !== "undefined" && elvis !== null) {
+  alert("I knew it!");
+}
+
+// Array comprehensions:
+var cubes = (function() {
+  var i, len, results;
+  results = [];
+  for (i = 0, len = list.length; i < len; i++) {
+    num = list[i];
+    results.push(math.cube(num));
+  }
+  return results;
+})();
+
+----
+== Splats
+
+race = (winner, runners...) ->
+  print winner, runners
+
+----
+== Splats
+
+var race = function() {
+  var runners, winner;
+  winner = arguments[0],
+    runners = 2 <= arguments.length
+    ? slice.call(arguments, 1) : [];
+  return print(winner, runners);
+};
+
+----
+== Destructuring Assignment
+
+var futurists = {
+  sculptor: "Umberto Boccioni",
+  painter: "Vladimir Burliuk",
+  poet: {
+    name: "F.T. Marinetti",
+    address: ["Via Roma 42R", "Bellagio, Italy 22021"]
+  }
+};
+
+var sculptor = futurists.sculptor;
+var name = futurists.poet.name;
+var street = futurists.poet.address[0];
+var city = futurists.poet.address[1];
+
+----
+== Destructuring Assignment
+
+futurists =
+  sculptor: "Umberto Boccioni"
+  painter:  "Vladimir Burliuk"
+  poet:
+    name:   "F.T. Marinetti"
+    address: [
+      "Via Roma 42R"
+      "Bellagio, Italy 22021"
+    ]
+
+
+{sculptor} = futurists
+{poet: {name, address: [street, city]}} = futurists
+
+----
+== Destructuring Splat
+
+[open, contents..., close] = tag.split ""
+
+----
+== Destructuring Splat
+
+var close, contents, i, open, ref, tag,
+  slice = [].slice;
+
+ref = tag.split(""), open = ref[0], contents = 3 <= ref.length
+  ? slice.call(ref, 1, i = ref.length - 1)
+  : (i = 1, []), close = ref[i++];
+
+----
+== Object Oriented
+
+@                     this
+@foo = 1              this.foo = 1
+@bar 1, 2             this.bar(1, 2)
+
+class Animal
+  constructor: (@name, {@age, @weight})->
+
+  move: (meters)->
+    alert @name + " moved #{meters}m."
+
+class Snake extends Animal
+  move: ->
+    alert "Slithering..."
+    super 5
+
+sam = new Snake "Sammy the Python"
+sam.move()
+
+----
+== Triple Down!
+
+* Python gave us """
+
++* Coffee Gives us ''', """, ///, ###
+
++* But no heredocs! :(
+
++* They are waiting for Ingy to do it!
+  * https://github.com/jashkenas/coffeescript/issues/3299
+  * Closing as this isn’t a top priority at the moment,
+    but a PR that implements heredocs would be welcomed.
+
+----
+== The Cozy Cafe
+
+* This is just a taste of Coffee
+
++* Let's check out the new Cafe
+
+----
+== Heredocs!!!
+
+cafescript = <<<cafe
+  foo = ->
+    bar
+cafe>>>
+
+----
+== Method Calls and Hash Lookups
+
+  Cafe            Coffee
+  -------------------------
+* foo.bar 1, 2    foo.bar 1, 2
+* foo.bar         foo.bar()
+
+* foo:bar         foo.bar
+* foo:(bar)       foo[bar]
+* foo:0           foo[0]
+* foo:'0'         foo['0']
+
+----
+== Object Oriented Coffee
+
+class Animal
+  constructor: (@name, {@age, @weight})->
+
+  move: (meters)->
+    alert @name + " moved #{meters}m."
+
+class Snake extends Animal
+  move: ->
+    alert "Slithering..."
+    super 5
+
+sam = new Snake "Sammy the Python"
+sam.move()
+
+----
+== Object Oriented Cafe!
+
+class Animal
+  (@name, {@age, @weight})->
+
+  move: (meters)->
+    alert @name + " moved #{meters}m."
+
+class Snake(Animal)
+  move: ->
+    alert "Slithering..."
+    super 5
+
+sam = Snake "Sammy the Python"
+sam.move
+
+----
+== Less Syntax
+
+# Coffee:
+list1 = [1, "two", 3]
+list2 = ["a", "b", "c"]
+
+# Cafe:
+list1 = [1 "two" 3]
+list2 = <a b c>      # Perl6++ !!!
+
+----
+== Cafe is just a tiny bit better...
+
++== But Why Not?
+
++== Now You're an Acmeist
+
++== YOU DESERVE IT!!!
+
+----
+== Come to the new Cafe!
+
+== /join #cafescript
+
+----
+
+== .___________. __    __   _______     _______ .__   __.  _______   __.
+== |           ||  |  |  | |   ____|   |   ____||  \ |  | |       \ |  |
+== `---|  |----`|  |__|  | |  |__      |  |__   |   \|  | |  .--.  ||  |
+== .   |  |     |   __   | |   __|     |   __|  |  . `  | |  |  |  ||  |
+== .   |  |     |  |  |  | |  |____    |  |____ |  |\   | |  '--'  ||__|
+== .   |__|     |__|  |__| |_______|   |_______||__| \__| |_______/ (__)
+
